@@ -1,0 +1,1 @@
+default_app_config = "DD_QC.apps.DD_QCConfig"

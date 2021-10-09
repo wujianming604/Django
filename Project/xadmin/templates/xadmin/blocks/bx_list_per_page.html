@@ -1,0 +1,11 @@
+{% if list_per_page_required %}
+<div class="dropdown" style="display:inline-block;">
+    <button class="btn btn-default btn-sm dropdown-toggle" style="line-height:1.42" type="button" data-toggle="dropdown">每页
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+        {% for num in list_per_page_range %}
+        <li>{{ num }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}

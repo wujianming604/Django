@@ -1,0 +1,1 @@
+default_app_config = "Genetic_Counseling.apps.Genetic_CounselingConfig"
