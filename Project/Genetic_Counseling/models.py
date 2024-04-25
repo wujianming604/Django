@@ -16,12 +16,12 @@ class ProcessAnalysis(models.Model):
     sex = models.CharField(max_length=25, blank=True, null=True, verbose_name="性别")
     age = models.CharField( max_length=50, blank=True, null=True, verbose_name="出生日期")
     sample_name = models.CharField(max_length=50, verbose_name="样本编号")
-    user_name = models.CharField(max_length=10, verbose_name="患者姓名")
+    user_name = models.CharField(max_length=30, verbose_name="患者姓名")
     other_sample = models.CharField(max_length=255, null=True, verbose_name="亲属样本条码")
     hospital = models.CharField(max_length=50, verbose_name="送检医院")
     area = models.CharField(max_length=25, verbose_name="大区")
     representative = models.CharField(max_length=25, verbose_name="代表")
-    product_type = models.CharField(max_length=25, verbose_name="产品类型")
+    product_type = models.CharField(max_length=50, verbose_name="产品类型")
     send_time = models.CharField(max_length=25, null=True, verbose_name="送检日期")
     receive_time = models.CharField(max_length=25, null=True, verbose_name="收样日期")
     predict_data = models.CharField(max_length=25, null=True, verbose_name="预计下机时间")
@@ -29,7 +29,7 @@ class ProcessAnalysis(models.Model):
     data_complete_analysis = models.CharField( max_length=25, null=True, verbose_name="原始数据分析完成时间")
     first_check = models.CharField( max_length=100, null=True, verbose_name="一审人+完成时间")
     sanger = models.CharField(max_length=100, null=True, verbose_name="Sanger验证位点")
-    second = models.CharField(max_length=100, null=True, verbose_name="二审人+完成时间")
+    second_check = models.CharField(max_length=100, null=True, verbose_name="二审人+完成时间")
     sanger_check = models.CharField(max_length=100, null=True, verbose_name="Sanger验证位点是否一致")
     sanger_send_time = models.CharField(max_length=100, null=True, verbose_name="Sanger测序送测时间")
     sanger_complete_time = models.CharField(max_length=100, null=True, verbose_name="Sanger测序完成时间")
@@ -40,6 +40,8 @@ class ProcessAnalysis(models.Model):
     doctor_report = models.CharField(max_length = 25, blank=True, null=True, verbose_name="医生版上传日期")
     user_report = models.CharField(max_length = 25, blank=True, null=True, verbose_name="患者版上传日期")
     report_day = models.CharField(max_length=25, null=True, verbose_name="报告周期/自然日")
+    re_ana_date = models.CharField(max_length=25, null=True, verbose_name="重分析日期")
+    re_ana_result = models.CharField(max_length=100, null=True, verbose_name="重分析结果")
     
     class Meta:
         verbose_name = verbose_name_plural = '贝安臻流程进度'
@@ -67,6 +69,7 @@ class zzxProcessAnalysis(models.Model):
     hospital = models.CharField(max_length=50, verbose_name="送检医院")
     area = models.CharField(max_length=25, verbose_name="大区")
     representative = models.CharField(max_length=10, verbose_name="代表")
+    product_type = models.CharField(max_length=50, null=True, verbose_name="产品类型")
     send_time = models.CharField(max_length=25, null=True, verbose_name="送检日期")
     receive_time = models.CharField(max_length=25, null=True, verbose_name="收样日期")
     predict_data = models.CharField(max_length=25, null=True, verbose_name="预计下机时间")
@@ -74,7 +77,7 @@ class zzxProcessAnalysis(models.Model):
     data_complete_analysis = models.CharField( max_length=25, null=True, verbose_name="原始数据分析完成时间")
     first_check = models.CharField( max_length=100, null=True, verbose_name="一审人+完成时间")
     sanger = models.CharField(max_length=100, null=True, verbose_name="Sanger验证位点")
-    second = models.CharField(max_length=100, null=True, verbose_name="二审人+完成时间")
+    second_check = models.CharField(max_length=100, null=True, verbose_name="二审人+完成时间")
     sanger_check = models.CharField(max_length=100, null=True, verbose_name="Sanger验证位点是否一致")
     sanger_send_time = models.CharField(max_length=100, null=True, verbose_name="Sanger测序送测时间")
     sanger_complete_time = models.CharField(max_length=100, null=True, verbose_name="Sanger测序完成时间")
@@ -146,21 +149,18 @@ class GeneDisease(models.Model):
     '''
     # 自增主键, 这里不能设置default属性，负责执行save的时候就不会新增而是修改元素
     id = models.AutoField(primary_key=True)
-    gene = models.TextField(blank=True, null=True, verbose_name="基因")
-    disease = models.TextField(blank=True, null=True,  verbose_name="疾病")
-    omim = models.TextField(blank=True, null=True, verbose_name="MIM")
-    genetic_model = models.TextField(blank=True, null=True, verbose_name="遗传模式")
-    morbidity = models.TextField(blank=True, null=True, verbose_name="发病率")
-    morbidity_age = models.TextField(blank=True, null=True, verbose_name="发病年龄")
-    penetrance = models.TextField(blank=True, null=True, verbose_name="外显率")
-    clinical_feature = models.TextField(blank=True, null=True,verbose_name="临床表现")
-    clinical_intervention = models.TextField(blank=True, null=True,verbose_name="临床干预")
-    case_manage = models.TextField(blank=True, null=True,verbose_name="患者管理")
-    clinical_monitoring = models.TextField(blank=True, null=True,verbose_name="临床监测")
-    avoid = models.TextField(blank=True, null=True, verbose_name="需要避免的情况")
-    risk_assessment = models.TextField(blank=True, null=True, verbose_name="家系成员患病风险评估")
-    reason = models.TextField(blank=True, null=True, verbose_name="可能存在临床检测阴性的原因")
-    other = models.TextField(blank=True, null=True, verbose_name="其他")
+    Gene = models.CharField(max_length = 50, blank=True, null=True, verbose_name="Gene")
+    Gene_OMIM_ID = models.CharField(max_length = 50, blank=True, null=True,  verbose_name="Gene_OMIM_ID")
+    Gene_Description_CH = models.TextField(blank=True, null=True, verbose_name="Gene_Description_CH")
+    OMIM_Disease_CH = models.TextField(blank=True, null=True, verbose_name="OMIM_Disease_CH")
+    OMIM_Disease = models.TextField(blank=True, null=True, verbose_name="OMIM_Disease")
+    Disease_OMIM_ID = models.CharField(max_length = 50,blank=True, null=True, verbose_name="Disease_OMIM_ID")
+    OMIM_Inhert = models.CharField(max_length = 50,blank=True, null=True, verbose_name="OMIM_Inhert")
+    Disease_Description_CH = models.TextField(blank=True, null=True,verbose_name="Disease_Description_CH")
+    HPO_All_Terms = models.TextField(blank=True, null=True,verbose_name="HPO_All_Terms")
+    CHPO_All_Terms = models.TextField(blank=True, null=True,verbose_name="CHPO_All_Terms")
+    OMIM_Clinical_Synopses = models.TextField(blank=True, null=True,verbose_name="OMIM_Clinical_Synopses")
+    OMIM_Clinical_Synopses_CH = models.TextField(blank=True, null=True, verbose_name="OMIM_Clinical_Synopses_CH")
     created_time = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name="createdTime")
     update_time = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="updateTime")
 
@@ -168,7 +168,7 @@ class GeneDisease(models.Model):
         verbose_name = verbose_name_plural = 'GeneDisease'
     
     def __str__(self):
-        return self.gene
+        return self.Gene
 
 
 class ZKAnalysis(models.Model):
@@ -186,7 +186,7 @@ class ZKAnalysis(models.Model):
     sample_name = models.CharField(max_length=50, verbose_name="样本编号")
     other_sample = models.CharField(max_length=255, null=True, verbose_name="亲属样本条码")
     hospital = models.CharField(max_length=50, verbose_name="送检医院")
-    product_type = models.CharField(max_length=25, verbose_name="产品类型")
+    product_type = models.CharField(max_length=50, verbose_name="产品类型")
     send_time = models.CharField(max_length=25, null=True, verbose_name="送检日期")
     receive_time = models.CharField(max_length=25, null=True, verbose_name="收样日期")
     predict_data = models.CharField(max_length=25, null=True, verbose_name="预计下机时间")

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from datetime import date
 
 
 class QC(models.Model):
@@ -48,6 +49,7 @@ class QC(models.Model):
     cover100X = models.FloatField(default=-9, verbose_name="100X")
     cover200X = models.FloatField(default=-9, verbose_name="200X")
     cover500X = models.FloatField(default=-9, verbose_name="500X")
+    created_time = models.CharField(max_length=30,  verbose_name="createdTime")
  
     class Meta:
         verbose_name = verbose_name_plural = 'QC'

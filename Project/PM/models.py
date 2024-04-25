@@ -16,7 +16,7 @@ class PM(models.Model):
     sample_type = models.CharField(max_length=10, verbose_name="样本类型")
     hospital = models.CharField(max_length=50, null=True, blank=True, verbose_name="送检医院")
     representative = models.CharField(max_length=10, null=True, blank=True, verbose_name="代表姓名")
-    rep_phone = models.CharField(max_length=20, null=True, blank=True, verbose_name="联系电话")
+    rep_phone = models.CharField(max_length=60, null=True, blank=True, verbose_name="联系电话")
     send_time = models.CharField(max_length=25, null=True, blank=True, verbose_name="样本送检时间")
     receive_time = models.CharField(max_length=25, null=True, blank=True, verbose_name="样本接收时间")
     clinical_info = models.TextField(default='', blank=True, null=True, verbose_name="有无临床信息")

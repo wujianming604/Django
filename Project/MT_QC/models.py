@@ -19,8 +19,8 @@ class MT_QC(models.Model):
     dedup_rate = models.FloatField(default=-9, verbose_name="dedupRate")
     target_reads = models.TextField(default=-9, verbose_name="teargetReads")
     capture_rate = models.FloatField(default=-9, verbose_name="captureRate")
-    mean_depth_raw = models.FloatField(default=-9, verbose_name="meanDepthRaw")
-    mean_depth = models.FloatField(default=-9, verbose_name="meanDepth")
+    chrM_mean_depth_raw = models.FloatField(default=-9, verbose_name="meanDepthRaw")
+    chrM_mean_depth = models.FloatField(default=-9, verbose_name="meanDepth")
  
     class Meta:
         verbose_name = verbose_name_plural = 'MT_QC'

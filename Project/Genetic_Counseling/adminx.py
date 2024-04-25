@@ -3,8 +3,8 @@ import xadmin
 from .models import ProcessAnalysis, zzxProcessAnalysis, SampleInfo, GeneDisease, ZKAnalysis
 
 class ProcessAnalysisAdmin(object):
-    #list_display = ('id','sample_id','sample_name','user_name','hospital','area','representative','product_type','send_time','receive_time','predict_data','predict_report','data_complete_analysis','first_check','sanger','second','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','report_day','mark')
-    list_display = ('sample_id','user_name','age','sex','mark','sample_name','other_sample','hospital','product_type','send_time','receive_time','predict_data','predict_report','data_complete_analysis','first_check','sanger','second','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','doctor_report','user_report','report_day')
+    #list_display = ('id','sample_id','sample_name','user_name','hospital','area','representative','product_type','send_time','receive_time','predict_data','predict_report','data_complete_analysis','first_check','sanger','second_check','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','report_day','mark')
+    list_display = ('sample_id','user_name','age','sex','mark','sample_name','other_sample','hospital','product_type','send_time','receive_time','predict_data','predict_report','data_complete_analysis','first_check','sanger','second_check','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','doctor_report','re_ana_date','re_ana_result')
     search_fields = ['sample_id','sample_name','user_name','product_type','hospital','mark']
     list_filter = ['sample_id','sample_name','user_name','product_type','hospital','mark']
 
@@ -21,7 +21,8 @@ class ProcessAnalysisAdmin(object):
 
     # fields = ('sampleName', 'chrom', 'pos', 'genoType', 'abiFileUrl', 'abiPngUrl',)
     #list_editable 设置默认可编辑字段
-    list_editable = ['age','data_complete_analysis','first_check','sanger','second','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','doctor_report','user_report','report_day','mark']
+    #list_editable = ['age','data_complete_analysis','first_check','sanger','second_check','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','doctor_report','user_report','report_day','mark']
+    list_editable = ['age','send_time','receive_time','predict_data','predict_report','data_complete_analysis','first_check','sanger','second_check','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','doctor_report','re_ana_date','re_ana_result','mark']
 
 class ZKAnalysisAdmin(object):
     list_display = ('sample_id','birth','sex','product_type','user_name','mark','sample_name','other_sample','hospital','send_time','receive_time','predict_data','predict_report','data_complete_analysis','send_data_to_zk','send_clinical_to_zk','zk_analysis_finish','send_sanger_to_test','sanger_complete_time','send_sanger_to_zk','zk_report','doctor_report','user_report','report_day')
@@ -44,8 +45,8 @@ class ZKAnalysisAdmin(object):
 
 
 class zzxProcessAnalysisAdmin(object):
-    #list_display = ('id','sample_id','sample_name','user_name','hospital','area','representative','product_type','send_time','receive_time','predict_data','predict_report','data_complete_analysis','first_check','sanger','second','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','report_day','mark')
-    list_display = ('sample_id','user_name','age','sex','mark','sample_name','other_sample','hospital','send_time','receive_time','predict_data','predict_report','data_complete_analysis','first_check','sanger','second','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','doctor_report','user_report','report_day')
+    #list_display = ('id','sample_id','sample_name','user_name','hospital','area','representative','product_type','send_time','receive_time','predict_data','predict_report','data_complete_analysis','first_check','sanger','second_check','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','report_day','mark')
+    list_display = ('sample_id','user_name','age','sex','mark','sample_name','other_sample','hospital','product_type','send_time','receive_time','predict_data','predict_report','data_complete_analysis','first_check','sanger','second_check','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','doctor_report','user_report','report_day')
     search_fields = ['sample_id','sample_name','user_name','hospital']
     list_filter = ['sample_id','sample_name','user_name','hospital']
 
@@ -61,7 +62,7 @@ class zzxProcessAnalysisAdmin(object):
 
     # fields = ('sampleName', 'chrom', 'pos', 'genoType', 'abiFileUrl', 'abiPngUrl',)
     #list_editable 设置默认可编辑字段
-    list_editable = ['age','data_complete_analysis','first_check','sanger','second','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','doctor_report','user_report','report_day','mark']
+    list_editable = ['age','data_complete_analysis','first_check','sanger','second_check','sanger_check','sanger_send_time','sanger_complete_time','cnv','report_writer','report_check','report_time','doctor_report','user_report','report_day','mark']
 
 
 class SampleInfoAdmin(object):
@@ -85,18 +86,18 @@ class SampleInfoAdmin(object):
 
 class GeneDiseaseAdmin(object):
     #查询结果字段
-    list_display = ('id', 'gene', 'genetic_model', 'omim', 'morbidity', 'morbidity_age', 'penetrance', 'clinical_intervention', 'case_manage', 'clinical_monitoring',  'created_time')
+    list_display = ('id', 'Gene', 'Gene_OMIM_ID', 'Gene_Description_CH', 'OMIM_Disease_CH', 'OMIM_Disease', 'Disease_OMIM_ID', 'OMIM_Inhert', 'Disease_Description_CH', 'HPO_All_Terms','CHPO_All_Terms','OMIM_Clinical_Synopses','OMIM_Clinical_Synopses_CH')
     #搜索框
-    search_fields = ['gene', 'genetic_model']
+    search_fields = ['Gene', 'Gene_OMIM_ID','Disease_OMIM_ID']
     #过滤框
-    list_filter = ['gene', 'genetic_model']
+    list_filter = ['Gene', 'Gene_OMIM_ID','Disease_OMIM_ID']
     # list_exclude = ['updateTime']
     #列表可直接修改字段
     show_bookmarks = False
     # 每页显示的数据行数
     list_per_page = 16
-    list_editable = ['gene', 'disease', 'genetic_model', 'morbidity', 'morbidity_age','penetrance', 'clinical_feature', 'clinical_intervention', 'case_manage', 'clinical_monitoring', 'avoid', 'risk_assessment', 'reason']
-    fields = ('gene', 'disease', 'genetic_model', 'morbidity', 'clinical_feature', 'clinical_intervention', 'case_manage', 'clinical_monitoring', 'avoid', 'risk_assessment', 'reason','other')
+    list_editable = ['Gene', 'Gene_OMIM_ID', 'Gene_Description_CH', 'OMIM_Disease_CH', 'OMIM_Disease', 'Disease_OMIM_ID', 'OMIM_Inhert',  'Disease_Description_CH', 'HPO_All_Terms','CHPO_All_Terms','OMIM_Clinical_Synopses','OMIM_Clinical_Synopses_CH']
+    fields = ('Gene', 'Gene_OMIM_ID', 'Gene_Description_CH', 'OMIM_Disease_CH', 'OMIM_Disease', 'Disease_OMIM_ID', 'OMIM_Inhert',  'Disease_Description_CH', 'HPO_All_Terms','CHPO_All_Terms','OMIM_Clinical_Synopses','OMIM_Clinical_Synopses_CH')
 
 
 xadmin.site.register(GeneDisease, GeneDiseaseAdmin)
